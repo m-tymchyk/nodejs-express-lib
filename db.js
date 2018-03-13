@@ -19,7 +19,7 @@ function connect(url, done) {
             return done(err);
         }
         state.db = db.db('myapi');
-        
+        console.log('test');
         done();
     });
     
