@@ -42,3 +42,14 @@ exports.update = function(req, res) {
         res.sendStatus(200);
     })
 }
+
+exports.delete = function(req, res) {
+    Artists.delete(req.params.id, function(err, result) {
+        console.log("delete: req.body: " + JSON.stringify(req.params.id));
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+        }
+        res.sendStatus(200);
+    })
+}

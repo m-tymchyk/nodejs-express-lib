@@ -22,8 +22,17 @@ exports.create = function (artist, cb) {
 
 exports.update = function (id, newData, cb) {
     db.get().collection('artists').update(
-        {'_id': ObjectID(id)},
+        {_id: ObjectID(id)},
         newData,
+        function(err, result){
+            cb(err, result);
+        }
+    )
+}
+
+exports.delete = function(id, cb) {
+    db.get().collection('artists').deleteOne(
+        {_id: ObjectID(id)},
         function(err, result){
             cb(err, result);
         }

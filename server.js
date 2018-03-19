@@ -26,19 +26,7 @@ app.post('/artists', artistsController.create);
 
 app.put('/artists/:id', artistsController.update);
 
-app.delete('/artists/:id', function(req, res){
-    db.get().collection('artists').deleteOne(
-        {'_id': ObjectID(req.params.id)},
-        function(err, result){
-            if(err){
-                console.log(err);
-                return res.sendStatus(500);
-            }
-            res.sendStatus(200);
-        }
-    )
-
-})
+app.delete('/artists/:id', artistsController.delete);
 
 
 
