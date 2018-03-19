@@ -19,3 +19,13 @@ exports.create = function (artist, cb) {
         cb(err, doc);
     })
 }
+
+exports.update = function (id, newData, cb) {
+    db.get().collection('artists').update(
+        {'_id': ObjectID(id)},
+        newData,
+        function(err, result){
+            cb(err, result);
+        }
+    )
+}

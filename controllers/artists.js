@@ -32,3 +32,13 @@ exports.create = function(req, res){
         res.send(artist);
     })
 }
+
+exports.update = function(req, res) {
+    Artists.update(req.params.id, {name: req.body.name}, function(err, result){
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+        }
+        res.sendStatus(200);
+    })
+}
