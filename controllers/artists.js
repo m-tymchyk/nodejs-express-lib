@@ -11,7 +11,7 @@ exports.all = function(req,res){
 }
 
 exports.findById = function(req,res){
-    Artists.findById(req.params.id, function(err,doc){
+    Artists.findById(req.params.name, function(err,doc){
         if(err){
             console.log(err);
             return res.sendStatus(500);

@@ -8,8 +8,8 @@ exports.all = function (cb) {
     })
 }
 
-exports.findById = function (id,cb) {
-    db.get().collection('artists').findOne( { _id: ObjectID(id) }, function(err,doc){
+exports.findById = function (name,cb) {
+    db.get().collection('artists').findOne( { name: name }, function(err,doc){
         cb(err, doc);
     })
 }
