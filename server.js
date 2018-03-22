@@ -18,11 +18,11 @@ app.get('/', function(req, res){
 
 app.get('/artists', artistsController.all);
 
-app.get('/artists/:name', artistsController.findById);
+app.get('/artists/:name', artistsController.findByName);
 
 app.post('/artists', artistsController.create);
 
-app.put('/artists/:id', artistsController.update);
+app.put('/artists/:name', artistsController.update);
 
 app.delete('/artists/:id', artistsController.delete);
 

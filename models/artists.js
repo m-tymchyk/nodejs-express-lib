@@ -8,7 +8,7 @@ exports.all = function (cb) {
     })
 }
 
-exports.findById = function (name,cb) {
+exports.findByName = function (name,cb) {
     db.get().collection('artists').findOne( { name: name }, function(err,doc){
         cb(err, doc);
     })
@@ -20,9 +20,11 @@ exports.create = function (artist, cb) {
     })
 }
 
-exports.update = function (id, newData, cb) {
+exports.update = function (name, newData, cb) {
     db.get().collection('artists').update(
-        {_id: ObjectID(id)},
+        {
+            name: name
+        },
         newData,
         function(err, result){
             cb(err, result);

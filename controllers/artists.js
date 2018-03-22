@@ -10,8 +10,8 @@ exports.all = function(req,res){
     })
 }
 
-exports.findById = function(req,res){
-    Artists.findById(req.params.name, function(err,doc){
+exports.findByName = function(req,res){
+    Artists.findByName(req.params.name, function(err,doc){
         if(err){
             console.log(err);
             return res.sendStatus(500);
@@ -22,7 +22,9 @@ exports.findById = function(req,res){
 
 exports.create = function(req, res){
     var artist = {
-        name: req.body.name
+        name: req.body.name,
+        content: req.body.content
+
     }
     Artists.create(artist, function(err, doc){
         if(err){
@@ -34,7 +36,7 @@ exports.create = function(req, res){
 }
 
 exports.update = function(req, res) {
-    Artists.update(req.params.id, {name: req.body.name}, function(err, result){
+    Artists.update(req.params.name, {name: req.body.name, content: req.body.content}, function(err, result){
         if(err){
             console.log(err);
             res.sendStatus(500);
