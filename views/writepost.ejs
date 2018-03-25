@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vendor/jquery/jquery.min.js" type="application/javascript"></script>
+    <title>Write post</title>
+</head>
+<body>
+    <div>
+        <form action="json.txt">
+            <input id="title-input" type="text" placeholder="Title">
+            <input id="content-input" type="text" placeholder="Content">
+            <input id="topic" type="text" placeholder="Topic">
+            <input id="rating" type="text" placeholder="Rating">
+        </form>
+        <button id="submit-btn" type="submit">Submit</button>
+        <div class="wrapper"></div>
+    </div>
+    <script>
+        var obj = {};
+        $('#submit-btn').on('click', function (form) {
+            form.preventDefault();
+            $('.wrapper').html(JSON.stringify($(this).prev('form').serializeArray()));
+        });
+        // $.ajax({
+        //     type: "POST",
+        //     url: "http://localhost:3012/posts/"+item,
+        //     dataType: "json",
+        //     contentType: "application/json;",
+        //     data: data
+        // })
+    </script>
+</body>
+</html>
