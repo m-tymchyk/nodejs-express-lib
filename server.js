@@ -2,27 +2,40 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
-var artistsController = require("./controllers/artists");
+var postsController = require("./controllers/posts");
 var db = require("./db");
+var passport = require("passport");
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("."));
+app.use(express.static(__dirname + "/assets"));
 
 app.get("/", function(req, res) {
-  res.send("Hello API");
+  res.render("login.ejs");
 });
 
-app.get("/artists", artistsController.all);
+app.get("/posts", postsController.all);
 
-app.get("/artists/:name", artistsController.findByName);
+app.get("/posts/:title", postsController.findByTitle);
 
-app.post("/artists", artistsController.create);
+app.get("/viewPost/:name", function(req, res) {
+  res.render("post.ejs");
+});
 
-app.put("/artists/:name", artistsController.update);
+app.get("/writepost", function(req, res) {
+  res.render("writepost.ejs");
+});
 
-app.delete("/artists/:id", artistsController.delete);
+app.post("/posts", postsController.create);
+
+app.post("/users", postsController.createLogin);
+
+app.put("/posts/:title", postsController.update);
+
+app.delete("/posts/:id", postsController.delete);
 
 db.connect("mongodb://127.0.0.1:27017/myapi", function(err) {
   if (err) {
