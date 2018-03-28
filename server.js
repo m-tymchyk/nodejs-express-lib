@@ -29,6 +29,18 @@ app.get("/writepost", function(req, res) {
   res.render("writepost.ejs");
 });
 
+// app.post(
+//   "/auth",
+//   passport.authenticate("local", {
+//     successRedirect: "/posts",
+//     failureRedirect: "/"
+//   }),
+
+//   function(req, res) {
+//     res.sendStatus(200);
+//   }
+// );
+
 app.post("/posts", postsController.create);
 
 app.post("/users", postsController.createLogin);
