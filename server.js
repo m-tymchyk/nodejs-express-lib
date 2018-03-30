@@ -29,8 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Set Static Folder
-app.use(express.static("."));
-app.use(express.static(__dirname + "/assets"));
+app.use(express.static(path.join(__dirname, "assets")));
 
 // Express Session
 app.use(
@@ -83,26 +82,6 @@ app.use("/viewusers", viewusers);
 app.get("/posts", postsController.all);
 
 app.get("/posts/:title", postsController.findByTitle);
-
-app.get("/viewPost/:name", function(req, res) {
-  res.render("post.ejs");
-});
-
-app.get("/writepost", function(req, res) {
-  res.render("writepost.ejs");
-});
-
-// app.post(
-//   "/auth",
-//   passport.authenticate("local", {
-//     successRedirect: "/posts",
-//     failureRedirect: "/"
-//   }),
-
-//   function(req, res) {
-//     res.sendStatus(200);
-//   }
-// );
 
 app.post("/posts", postsController.create);
 
