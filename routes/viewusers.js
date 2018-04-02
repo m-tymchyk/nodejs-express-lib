@@ -1,8 +1,7 @@
 var express = require("express");
 var router = express.Router();
-var bcrypt = require("bcryptjs");
 
-var userController = require("../controllers/user");
+var User = require("../models/user");
 
 // Register
 router.get("/register", function(req, res) {
@@ -21,7 +20,7 @@ router.post("/register", function(req, res) {
   var password = req.body.password;
   var password2 = req.body.password2;
 
-  console.log(req.body);
+  // console.log(req.body);
   req.checkBody("name", "Name is required").notEmpty();
   req.checkBody("email", "Email is required").notEmpty();
   req.checkBody("email", "Email is not valid").isEmail();
@@ -35,10 +34,21 @@ router.post("/register", function(req, res) {
       errors: errors
     });
   } else {
-    express().post("/users", userController.createUser);
+    var newUser = new User({
+      name: name,
+      email: email,
+      username: username,
+      password: password
+    });
+
+    User.createUser(newUser, function(err, user) {
+      if (err) throw err;
+      console.log(user);
+    });
+
+    req.flash("success_msg", "You are registered and can now login");
 
     res.redirect("/viewusers/login");
-    req.flash("success_msg", "You are registered and can now login");
   }
 });
 

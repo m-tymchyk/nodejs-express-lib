@@ -85,8 +85,6 @@ app.get("/posts/:title", postsController.findByTitle);
 
 app.post("/posts", postsController.create);
 
-// app.post("/users", postsController.createLogin);
-
 app.put("/posts/:title", postsController.update);
 
 app.delete("/posts/:id", postsController.delete);
