@@ -17,7 +17,6 @@ exports.findByTitle = function(req, res) {
       return res.sendStatus(500);
     }
     res.send(doc);
-    console.log(__dirname);
   });
 };
 
@@ -35,21 +34,6 @@ exports.create = function(req, res) {
       return res.sendStatus(500);
     }
     res.send(post);
-  });
-};
-
-exports.createLogin = function(req, res) {
-  var user = {
-    user: req.body.user,
-    pwd: req.body.pwd
-  };
-  Posts.createLogin(user, function(err, doc) {
-    if (err) {
-      console.log(err);
-      return res.sendStatus(500);
-    }
-    console.log(user);
-    res.send(user);
   });
 };
 

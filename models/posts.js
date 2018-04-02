@@ -29,15 +29,6 @@ exports.create = function(post, cb) {
     });
 };
 
-exports.createLogin = function(user, cb) {
-  db
-    .get()
-    .collection("users")
-    .insert(user, function(err, doc) {
-      cb(err, doc);
-    });
-};
-
 exports.update = function(title, newData, cb) {
   db
     .get()
