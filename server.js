@@ -8,6 +8,7 @@ var flash = require("connect-flash");
 var session = require("express-session");
 var LocalStrategy = require("passport-local").Strategy;
 var MongoClient = require("mongodb").MongoClient;
+var mongoose = require("mongoose");
 var ObjectID = require("mongodb").ObjectID;
 var postsController = require("./controllers/posts");
 var db = require("./db");

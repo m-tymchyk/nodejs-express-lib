@@ -29,9 +29,8 @@ module.exports.createUser = function(newUser, callback) {
         .get()
         .collection("users")
         .insert(newUser, function(err, doc) {
-          console.log(doc);
+          if (err) throw err;
         });
-      console.log(newUser);
     });
   });
 };
