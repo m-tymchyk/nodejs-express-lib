@@ -1,4 +1,33 @@
 var Posts = require("../models/posts");
+var multer = require("multer");
+var path = require("path");
+var { map } = require("lodash");
+
+// set storage engine
+var storage = multer.diskStorage({
+  destination: "./assets/img/",
+  filename: function(req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+// init upload
+var upload = multer({
+  storage: storage
+}).array("myImage", 4);
+
+var storage = multer.diskStorage({
+  distination: "/assets/img",
+  filename: function(req, file, cb) {
+    cb(
+      error,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
 
 exports.all = function(req, res) {
   Posts.all(function(err, docs) {
@@ -21,19 +50,29 @@ exports.findByTitle = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var post = {
-    title: req.body.title,
-    topic: req.body.topic,
-    content: req.body.content,
-    rating: req.body.rating,
-    hash_post: req.body.hash_post
-  };
-  Posts.create(post, function(err, doc) {
+  upload(req, res, function(err) {
     if (err) {
-      console.log(err);
-      return res.sendStatus(500);
+      res.render("index", {
+        errors: err
+      });
+    } else {
+      var imgLink = map(req.files, function(file) {
+        return file.path;
+      });
+      var post = {
+        img: imgLink,
+        title: req.body.title,
+        content: req.body.content
+      };
+      Posts.create(post, function(err, doc) {
+        if (err) {
+          console.log(err);
+          return res.sendStatus(500);
+        }
+        console.log(post);
+        res.send(post);
+      });
     }
-    res.send(post);
   });
 };
 

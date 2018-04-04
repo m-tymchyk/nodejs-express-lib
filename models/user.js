@@ -34,3 +34,29 @@ module.exports.createUser = function(newUser, callback) {
     });
   });
 };
+
+module.exports.getUserByUsername = function(username, callback) {
+  var query = { username: username };
+  db
+    .get()
+    .collection("users")
+    .findOne(query, function(err, doc) {
+      callback(err, doc);
+    });
+};
+
+module.exports.getUserById = function(id, callback) {
+  db
+    .get()
+    .collection("users")
+    .findOne(id, function(err, doc) {
+      callback(err, doc);
+    });
+};
+
+module.exports.comparePassword = function(candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    if (err) throw err;
+    callback(null, isMatch);
+  });
+};
