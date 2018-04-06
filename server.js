@@ -82,7 +82,7 @@ app.use(function(req, res, next) {
 
 app.use("/", routes);
 
-app.use("/viewusers", viewusers);
+app.use("/admin", viewusers);
 
 app.get("/posts", postsController.all);
 
@@ -93,19 +93,8 @@ app.post("/posts", postsController.create);
 app.put("/posts/:title", postsController.update);
 
 app.delete("/posts/:id", postsController.delete);
-
 app.get("/upload", function(req, res) {
   res.render("upload");
-});
-
-app.post("/uploadpost", function(res, req) {
-  upload(req, res, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(req.file);
-    }
-  });
 });
 
 db.connect("mongodb://127.0.0.1:27017/myapi", function(err) {

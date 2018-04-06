@@ -62,6 +62,8 @@ exports.create = function(req, res) {
       var post = {
         img: imgLink,
         title: req.body.title,
+        slug: req.body.slug,
+        topic: req.body.topic,
         content: req.body.content
       };
       Posts.create(post, function(err, doc) {
