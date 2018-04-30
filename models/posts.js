@@ -49,6 +49,7 @@ exports.delete = function(title, cb) {
     .get()
     .collection("posts")
     .deleteOne({ title: title }, function(err, result) {
+      console.log(result + " result");
       cb(err, result);
     });
 };

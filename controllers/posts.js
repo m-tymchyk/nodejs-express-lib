@@ -17,7 +17,10 @@ var storage = multer.diskStorage({
 // init upload
 var upload = multer({
   storage: storage
-}).array("myImage", 4);
+}).fields([
+  { name: "mainImage", maxCount: "1" },
+  { name: "slider", maxCount: "8" }
+]);
 
 var storage = multer.diskStorage({
   distination: "/assets/img",
@@ -56,11 +59,15 @@ exports.create = function(req, res) {
         errors: err
       });
     } else {
-      var imgLink = map(req.files, function(file) {
+      var mainImg = map(req.files["mainImage"], function(file) {
+        return file.path;
+      });
+      var sliderImgs = map(req.files["slider"], function(file) {
         return file.path;
       });
       var post = {
-        img: imgLink,
+        img: mainImg,
+        slider: sliderImgs,
         title: req.body.title,
         slug: req.body.slug,
         topic: req.body.topic,
@@ -72,7 +79,8 @@ exports.create = function(req, res) {
           return res.sendStatus(500);
         }
         console.log(post);
-        res.send(post);
+        req.flash("success_msg", "Done");
+        res.redirect("/admin");
       });
     }
   });
@@ -101,7 +109,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   Posts.delete(req.params.title, function(err, result) {
     console.log(req.params.title);
-    console.log("delete: req.body: " + JSON.stringify(req.params.title));
+    console.log("delete: req.params: " + req.params.title);
     if (err) {
       console.log(err);
       res.sendStatus(500);

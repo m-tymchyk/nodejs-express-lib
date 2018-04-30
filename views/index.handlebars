@@ -1,0 +1,29 @@
+<hr>
+<div class="container">
+    <div class="row">
+        <h1>Adding new post</h1>
+        <hr>
+        <form action="/posts" method="POST" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <p>main image upload</p>
+                <input name="mainImage" type="file" >
+            </div>
+            <div class="file-field input-field">
+                <p>slider images upload</p>
+                <input name="slider" type="file" multiple>
+            </div>
+            <br>
+            <label for="titleInput">Title</label><br>
+            <input id="titleInput" type="text" name="title"><br><br>
+            <label for="slugInput">Slug</label><br>
+            <input id="slugInput" type="text" name="slug"><br><br>
+            <label for="topicInput">Topic</label><br>
+            <input id="topicInput" type="text" name="topic"><br><br>
+            <label for="contentInput">Content</label><br>
+            <input id="contentInput" type="text" name="content"><br><br>
+            <label for="commentsImgInput">Img comments</label><br>
+            <input id="commentsImgInput" type="text" name="commentsImg"><br><br>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</div>
